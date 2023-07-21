@@ -8,11 +8,6 @@ export default defineConfig({
       script: {
         defineModel: true,
       },
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag === 'lottie-player',
-        },
-      },
     }),
   ],
   resolve: {
