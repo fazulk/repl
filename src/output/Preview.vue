@@ -134,6 +134,7 @@ function createSandbox() {
             .join('')
             .replace(/\[Vue warn\]:/, '')
             .trim()
+          console.log('_warnMsg:', _warnMsg)
           if (_warnMsg.includes('Failed to resolve component: lottie-player')) {
             runtimeWarning.value = null
           } else {
