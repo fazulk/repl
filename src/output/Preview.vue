@@ -276,7 +276,7 @@ defineExpose({ reload })
 
 <template>
   <div class="iframe-container" v-show="show" ref="container"></div>
-  <!-- <Message :err="runtimeError" /> -->
+  <Message :err="runtimeError" />
   <Message v-if="!runtimeError" :warn="runtimeWarning" />
 </template>
 

@@ -14,6 +14,7 @@ watch(
 )
 
 function formatMessage(err: string | Error): string {
+  console.log(err)
   if (typeof err === 'string') {
     return err
   } else {
