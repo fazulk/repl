@@ -9,12 +9,16 @@ const dismissed = ref(false)
 watch(
   () => [props.err, props.warn],
   () => {
-    dismissed.value = false
+    console.log('warn', props.warn)
+    console.log('err', props.err)
     if (
-      typeof props.err.message === 'string' &&
-      props.err.message.includes('Failed to resolve component: lottie-player')
+      false
+      // typeof props.err.message === 'string' &&
+      // props.err.message.includes('Failed to resolve component: lottie-player')
     ) {
       dismissed.value = true
+    } else {
+      dismissed.value = false
     }
   }
 )
