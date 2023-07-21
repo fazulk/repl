@@ -246,6 +246,7 @@ async function updatePreview() {
           const AppComponent = __modules__["${mainFile}"].default
           AppComponent.name = 'Repl'
           const app = window.__app__ = _createApp(AppComponent)
+          app.config.compilerOptions.isCustomElement = tag => tag.includes('lottie')
           if (!app.config.hasOwnProperty('unwrapInjectedRef')) {
             app.config.unwrapInjectedRef = true
           }
