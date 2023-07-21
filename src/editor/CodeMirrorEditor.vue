@@ -12,11 +12,18 @@ const props = defineProps<EditorProps>()
 const emit = defineEmits<EditorEmits>()
 
 const onChange = (code: string) => {
-  emit('change', `<template>${code}</template>`)
+  emit(
+    'change',
+    `<template><div id="vue-cont-wrapper-classses" class="${props.containerClasses}">${code}</div></template>`
+  )
 }
 
-function removeTemplateTags(code: string) {
-  return code.replace(/<template>([\s\S]*)<\/template>/, '$1').trim()
+function updateEditorCode(code: string) {
+  return code
+    .replace(/<div[^>]*>/, '')
+    .replace(/<\/div>(?!.*<\/div>)/, '')
+    .replace(/<template>([\s\S]*)<\/template>/, '$1')
+    .trim()
 }
 
 const displayedHtml = ref('')
@@ -24,7 +31,7 @@ const displayedHtml = ref('')
 watch(
   () => props.value,
   (code: string) => {
-    displayedHtml.value = removeTemplateTags(code)
+    displayedHtml.value = updateEditorCode(code)
   }
 )
 
@@ -51,7 +58,7 @@ function formatHtml(value?: string) {
 }
 
 onMounted(() => {
-  const formatted = removeTemplateTags(props.value)
+  const formatted = updateEditorCode(props.value)
   formatHtml(formatted)
 })
 

@@ -10,7 +10,7 @@ import type { EditorComponentType } from './types'
 const SHOW_ERROR_KEY = 'repl_show_error'
 
 const props = defineProps<{
-  editorComponent: EditorComponentType
+  editorComponent: EditorComponentType | any
   containerClasses?: string
 }>()
 

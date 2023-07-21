@@ -3,13 +3,14 @@ import SplitPane from './SplitPane.vue'
 import Output from './output/Output.vue'
 import { Store, ReplStore, SFCOptions } from './store'
 import { provide, ref, toRef } from 'vue'
-import type { EditorComponentType } from './editor/types'
+// import type { EditorComponentType } from './editor/types'
 import EditorContainer from './editor/EditorContainer.vue'
+import CodeMirrorEditor from './editor/CodeMirrorEditor.vue'
 
 export interface Props {
   containerClasses?: string
   theme?: 'dark' | 'light'
-  editor: EditorComponentType
+  // editor: EditorComponentType
   store?: Store
   autoResize?: boolean
   showCompileOutput?: boolean
@@ -48,9 +49,9 @@ const props = withDefaults(defineProps<Props>(), {
   }),
 })
 
-if (!props.editor) {
-  throw new Error('The "editor" prop is now required.')
-}
+// if (!props.editor) {
+//   throw new Error('The "editor" prop is now required.')
+// }
 
 const outputRef = ref<InstanceType<typeof Output>>()
 const { store } = props
@@ -94,14 +95,14 @@ defineExpose({ reload })
     <SplitPane :layout="layout">
       <template #left>
         <EditorContainer
-          :editorComponent="editor"
+          :editorComponent="CodeMirrorEditor"
           :container-classes="containerClasses"
         />
       </template>
       <template #right>
         <Output
           ref="outputRef"
-          :editorComponent="editor"
+          :editorComponent="CodeMirrorEditor"
           :showCompileOutput="props.showCompileOutput"
           :ssr="!!props.ssr"
         />

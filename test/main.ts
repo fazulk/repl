@@ -1,7 +1,5 @@
 import { createApp, h, watchEffect } from 'vue'
 import { Repl, ReplStore } from '../src'
-import CodeMirrorEditor from '../src/editor/CodeMirrorEditor.vue'
-import { EditorComponentType } from '../src/editor/types'
 ;(window as any).process = { env: {} }
 
 const App = {
@@ -36,13 +34,19 @@ const App = {
 
     // store.setVueVersion('3.2.8')
 
+    const headHTML = `<script src=\"https://cdn.tailwindcss.com\"><\/script>
+    <script src=\"https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js\"><\/script>`
     return () =>
       h(Repl, {
         store,
         theme: 'dark',
-        editor: CodeMirrorEditor as any as EditorComponentType,
+        containerClasses: 'flex min-h-screen items-center',
+        previewOptions: {
+          headHTML,
+        },
+        // editor: CodeMirrorEditor as any as EditorComponentType,
         // layout: 'vertical',
-        ssr: true,
+        // ssr: false,
         sfcOptions: {
           script: {
             // inlineTemplate: false

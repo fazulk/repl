@@ -6,7 +6,7 @@ import type { OutputModes } from './types'
 import type { EditorComponentType } from '../editor/types'
 
 const props = defineProps<{
-  editorComponent: EditorComponentType
+  editorComponent: EditorComponentType | any
   showCompileOutput?: boolean
   ssr: boolean
 }>()
