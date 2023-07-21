@@ -119,7 +119,7 @@ defineExpose({ reload })
   --font-code: Menlo, Monaco, Consolas, 'Courier New', monospace;
   --color-branding: #42b883;
   --color-branding-dark: #416f9c;
-  --header-height: 38px;
+  --header-height: 0px;
 
   height: 100%;
   margin: 0;

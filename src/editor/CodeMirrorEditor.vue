@@ -16,9 +16,7 @@ const onChange = (code: string) => {
 }
 
 function removeTemplateTags(code: string) {
-  // code = code.trim()
-  // code = `<div class="p">code</div>`
-  return code.replace(/<template>/g, '').replaceAll(/<\/template>/g, '')
+  return code.replace(/<template>([\s\S]*)<\/template>/, '$1').trim()
 }
 
 const displayedHtml = ref('')
@@ -65,6 +63,28 @@ const activeMode = computed(() => {
 </script>
 
 <template>
-  <button @click="() => formatHtml()">Format</button>
+  <div style="margin: 10px">
+    <button type="button" class="format-btn" @click="() => formatHtml()">
+      Format
+    </button>
+  </div>
   <CodeMirror @change="onChange" :value="displayedHtml" :mode="activeMode" />
 </template>
+
+<style>
+.format-btn {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 300;
+  color: white;
+  background-color: rgba(100, 100, 100, 0.4) !important;
+}
+.format-btn:hover {
+  background-color: rgba(100, 100, 100, 0.7) !important;
+}
+</style>

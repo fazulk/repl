@@ -10,7 +10,7 @@ export default defineConfig({
       },
       template: {
         compilerOptions: {
-          isCustomElement: (tag) => ['lottie-player'].includes(tag),
+          isCustomElement: (tag) => tag === 'lottie-player',
         },
       },
     }),
