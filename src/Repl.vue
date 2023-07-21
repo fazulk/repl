@@ -48,9 +48,9 @@ const props = withDefaults(defineProps<Props>(), {
   }),
 })
 
-if (!props.editor) {
-  throw new Error('The "editor" prop is now required.')
-}
+// if (!props.editor) {
+//   throw new Error('The "editor" prop is now required.')
+// }
 
 const outputRef = ref<InstanceType<typeof Output>>()
 const { store } = props
