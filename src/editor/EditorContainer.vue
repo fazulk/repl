@@ -24,13 +24,9 @@ const localCode = ref('')
 function updateCode(code: string) {
   localCode.value = code
   store.state.activeFile.code =
-    `<template>
-      <div class=\"${props.mainClasses || ''}\">
-        <div class=\"${props.containerClasses || ''}\">` +
+    `<template><main class=\"${props.mainClasses}\"><div class=\"${props.containerClasses}\">` +
     code +
-    `</div>
-    </div>
-    </template>`
+    `</div></main></template>`
 }
 
 function formatHtml() {
@@ -53,8 +49,7 @@ const editorCode = computed(() => {
   return store.state.activeFile.code
     .replace(/<div[^>]*>/, '')
     .replace(/<\/div>(?!.*<\/div>)/, '')
-    .replace(/<div[^>]*>/, '')
-    .replace(/<\/div>(?!.*<\/div>)/, '')
+    .replace(/<main[^>]*>([\s\S]*)<\/main>/, '$1')
     .replace(/<template>([\s\S]*)<\/template>/, '$1')
     .trim()
 })
