@@ -215,6 +215,8 @@ async function updatePreview() {
       }.`
     )
 
+    console.log(previewOptions?.bodyHTML)
+
     const codeToEval = [
       `window.__modules__ = {};window.__css__ = [];` +
         `if (window.__app__) window.__app__.unmount();` +
@@ -276,7 +278,7 @@ defineExpose({ reload })
 
 <template>
   <div class="iframe-container" v-show="show" ref="container"></div>
-  <Message :err="runtimeError" />
+  <!-- <Message :err="runtimeError" /> -->
   <Message v-if="!runtimeError" :warn="runtimeWarning" />
 </template>
 

@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import FileSelector from './FileSelector.vue'
+// import FileSelector from './FileSelector.vue'
 import Message from '../Message.vue'
 import { debounce } from '../utils'
 import { inject, ref, watch } from 'vue'
 import { Store } from '../store'
-import MessageToggle from './MessageToggle.vue'
+// import MessageToggle from './MessageToggle.vue'
 import type { EditorComponentType } from './types'
 
 const SHOW_ERROR_KEY = 'repl_show_error'
 
 const props = defineProps<{
   editorComponent: EditorComponentType
+  containerClasses?: string
 }>()
 
 const store = inject('store') as Store
@@ -35,15 +36,16 @@ watch(showMessage, () => {
 </script>
 
 <template>
-  <FileSelector />
+  <!-- <FileSelector /> -->
   <div class="editor-container">
     <props.editorComponent
+      :container-classes="containerClasses"
       @change="onChange"
       :value="store.state.activeFile.code"
       :filename="store.state.activeFile.filename"
     />
     <Message v-show="showMessage" :err="store.state.errors[0]" />
-    <MessageToggle v-model="showMessage" />
+    <!-- <MessageToggle v-model="showMessage" /> -->
   </div>
 </template>
 

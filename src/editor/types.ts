@@ -3,6 +3,7 @@ import { type FunctionalComponent } from 'vue'
 export type PreviewMode = 'js' | 'css' | 'ssr'
 
 export interface EditorProps {
+  containerClasses: string
   value: string
   filename: string
   readonly?: boolean

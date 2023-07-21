@@ -33,7 +33,7 @@ defineExpose({ reload })
 </script>
 
 <template>
-  <div class="tab-buttons">
+  <!-- <div class="tab-buttons">
     <button
       v-for="m of modes"
       :class="{ active: mode === m }"
@@ -41,7 +41,7 @@ defineExpose({ reload })
     >
       <span>{{ m }}</span>
     </button>
-  </div>
+  </div> -->
 
   <div class="output-container">
     <Preview ref="previewRef" :show="mode === 'preview'" :ssr="ssr" />

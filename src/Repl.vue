@@ -7,8 +7,9 @@ import type { EditorComponentType } from './editor/types'
 import EditorContainer from './editor/EditorContainer.vue'
 
 export interface Props {
+  containerClasses?: string
   theme?: 'dark' | 'light'
-  editor: EditorComponentType
+  editor?: EditorComponentType
   store?: Store
   autoResize?: boolean
   showCompileOutput?: boolean
@@ -92,7 +93,10 @@ defineExpose({ reload })
   <div class="vue-repl">
     <SplitPane :layout="layout">
       <template #left>
-        <EditorContainer :editorComponent="editor" />
+        <EditorContainer
+          :editorComponent="editor"
+          :container-classes="containerClasses"
+        />
       </template>
       <template #right>
         <Output

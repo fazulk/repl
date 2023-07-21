@@ -1,7 +1,6 @@
 import { createApp, h, watchEffect } from 'vue'
 import { Repl, ReplStore } from '../src'
-import MonacoEditor from '../src/editor/MonacoEditor.vue'
-// import CodeMirrorEditor from '../src/editor/CodeMirrorEditor.vue'
+import CodeMirrorEditor from '../src/editor/CodeMirrorEditor.vue'
 import { EditorComponentType } from '../src/editor/types'
 ;(window as any).process = { env: {} }
 
@@ -19,8 +18,6 @@ const App = {
         ? undefined
         : `${location.origin}/src/vue-server-renderer-dev-proxy`,
     }))
-
-    console.log(store)
 
     watchEffect(() => history.replaceState({}, '', store.serialize()))
 
@@ -43,7 +40,7 @@ const App = {
       h(Repl, {
         store,
         theme: 'dark',
-        editor: MonacoEditor as any as EditorComponentType,
+        editor: CodeMirrorEditor as any as EditorComponentType,
         // layout: 'vertical',
         ssr: true,
         sfcOptions: {
