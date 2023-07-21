@@ -215,8 +215,6 @@ async function updatePreview() {
       }.`
     )
 
-    console.log(previewOptions?.bodyHTML)
-
     const codeToEval = [
       `window.__modules__ = {};window.__css__ = [];` +
         `if (window.__app__) window.__app__.unmount();` +
