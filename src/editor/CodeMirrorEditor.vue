@@ -29,9 +29,9 @@ function updateEditorCode(code: string) {
 const displayedHtml = ref('')
 
 watch(
-  () => props.value,
-  (code: string) => {
-    displayedHtml.value = updateEditorCode(code)
+  () => [props.value, props.containerClasses],
+  () => {
+    displayedHtml.value = updateEditorCode(props.value)
   }
 )
 
