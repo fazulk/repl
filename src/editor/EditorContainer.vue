@@ -4,7 +4,7 @@ import Message from '../Message.vue'
 import { debounce } from '../utils'
 import { inject, ref, watch } from 'vue'
 import { Store } from '../store'
-// import MessageToggle from './MessageToggle.vue'
+import MessageToggle from './MessageToggle.vue'
 import type { EditorComponentType } from './types'
 
 const SHOW_ERROR_KEY = 'repl_show_error'
@@ -45,7 +45,7 @@ watch(showMessage, () => {
       :filename="store.state.activeFile.filename"
     />
     <Message v-show="showMessage" :err="store.state.errors[0]" />
-    <!-- <MessageToggle v-model="showMessage" /> -->
+    <MessageToggle v-model="showMessage" />
   </div>
 </template>
 
