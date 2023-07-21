@@ -2,10 +2,11 @@
 // import FileSelector from './FileSelector.vue'
 import Message from '../Message.vue'
 import { debounce } from '../utils'
-import { inject, ref, watch } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { Store } from '../store'
 import MessageToggle from './MessageToggle.vue'
 import type { EditorComponentType } from './types'
+import { html } from 'js-beautify'
 
 const SHOW_ERROR_KEY = 'repl_show_error'
 
@@ -17,9 +18,39 @@ const props = defineProps<{
 const store = inject('store') as Store
 const showMessage = ref(getItem())
 
+const localCode = ref('')
+
+function updateCode(code: string) {
+  localCode.value = code
+  store.state.activeFile.code =
+    `<template><div class=\"${props.containerClasses}\">` +
+    code +
+    '</div></template>'
+}
+
+function formatHtml() {
+  const formatted = html(localCode.value, { indent_size: 2 })
+  updateCode(formatted)
+}
+
+watch(
+  () => props.containerClasses,
+  () => {
+    updateCode(localCode.value)
+  }
+)
+
 const onChange = debounce((code: string) => {
-  store.state.activeFile.code = code
+  updateCode(code)
 }, 250)
+
+const editorCode = computed(() => {
+  return store.state.activeFile.code
+    .replace(/<div[^>]*>/, '')
+    .replace(/<\/div>(?!.*<\/div>)/, '')
+    .replace(/<template>([\s\S]*)<\/template>/, '$1')
+    .trim()
+})
 
 function setItem() {
   localStorage.setItem(SHOW_ERROR_KEY, showMessage.value ? 'true' : 'false')
@@ -39,9 +70,9 @@ watch(showMessage, () => {
   <!-- <FileSelector /> -->
   <div class="editor-container">
     <props.editorComponent
-      :container-classes="containerClasses"
+      @format="formatHtml"
       @change="onChange"
-      :value="store.state.activeFile.code"
+      :value="editorCode"
       :filename="store.state.activeFile.filename"
     />
     <Message v-show="showMessage" :err="store.state.errors[0]" />

@@ -12,6 +12,7 @@ export interface EditorProps {
 
 export interface EditorEmits {
   (e: 'change', code: string): void
+  (e: 'format'): void
 }
 
 export type EditorComponentType = FunctionalComponent<

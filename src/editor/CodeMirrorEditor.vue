@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import CodeMirror, { type Props } from '../codemirror/CodeMirror.vue'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed } from 'vue'
 import type { EditorEmits, EditorProps } from './types'
-import { html } from 'js-beautify'
 
 defineOptions({
   editorType: 'codemirror',
@@ -12,28 +11,8 @@ const props = defineProps<EditorProps>()
 const emit = defineEmits<EditorEmits>()
 
 const onChange = (code: string) => {
-  emit(
-    'change',
-    `<template><div id="vue-cont-wrapper-classses" class="${props.containerClasses}">${code}</div></template>`
-  )
+  emit('change', code)
 }
-
-function updateEditorCode(code: string) {
-  return code
-    .replace(/<div[^>]*>/, '')
-    .replace(/<\/div>(?!.*<\/div>)/, '')
-    .replace(/<template>([\s\S]*)<\/template>/, '$1')
-    .trim()
-}
-
-const displayedHtml = ref('')
-
-watch(
-  () => [props.value, props.containerClasses],
-  () => {
-    displayedHtml.value = updateEditorCode(props.value)
-  }
-)
 
 const modes: Record<string, Props['mode']> = {
   css: 'css',
@@ -52,16 +31,6 @@ const modes: Record<string, Props['mode']> = {
   vue: 'htmlmixed',
 }
 
-function formatHtml(value?: string) {
-  const formatted = html(value || displayedHtml.value, { indent_size: 2 })
-  onChange(formatted)
-}
-
-onMounted(() => {
-  const formatted = updateEditorCode(props.value)
-  formatHtml(formatted)
-})
-
 const activeMode = computed(() => {
   const { mode: forcedMode, filename } = props
   const mode = modes[forcedMode || filename.split('.').pop()!]
@@ -71,11 +40,11 @@ const activeMode = computed(() => {
 
 <template>
   <div style="margin: 10px">
-    <button type="button" class="format-btn" @click="() => formatHtml()">
+    <button type="button" class="format-btn" @click="emit('format')">
       Format
     </button>
   </div>
-  <CodeMirror @change="onChange" :value="displayedHtml" :mode="activeMode" />
+  <CodeMirror @change="onChange" :value="value" :mode="activeMode" />
 </template>
 
 <style>
