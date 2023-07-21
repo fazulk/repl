@@ -136,8 +136,9 @@ function createSandbox() {
             .trim()
           if (_warnMsg.includes('Failed to resolve component: lottie-player')) {
             runtimeWarning.value = null
+          } else {
+            runtimeWarning.value = _warnMsg
           }
-          runtimeWarning.value = _warnMsg
         }
       }
     },
@@ -196,7 +197,6 @@ async function updatePreview() {
          const AppComponent = __modules__["${mainFile}"].default
          AppComponent.name = 'Repl'
          const app = _createApp(AppComponent)
-         app.config.compilerOptions.isCustomElement = tag => tag.includes('lottie')
          if (!app.config.hasOwnProperty('unwrapInjectedRef')) {
            app.config.unwrapInjectedRef = true
          }
@@ -246,7 +246,6 @@ async function updatePreview() {
           const AppComponent = __modules__["${mainFile}"].default
           AppComponent.name = 'Repl'
           const app = window.__app__ = _createApp(AppComponent)
-          app.config.compilerOptions.isCustomElement = tag => tag.includes('lottie')
           if (!app.config.hasOwnProperty('unwrapInjectedRef')) {
             app.config.unwrapInjectedRef = true
           }
