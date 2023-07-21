@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { CompilerError } from 'vue/compiler-sfc'
 
 const props = defineProps(['err', 'warn'])
 
 const dismissed = ref(false)
-
-const lottieMessage = computed(() => {
-  return !!props.warn?.includes('Failed to resolve component: lottie-player')
-})
 
 watch(
   () => [props.err, props.warn],
@@ -34,7 +30,7 @@ function formatMessage(err: string | Error): string {
 <template>
   <Transition name="fade">
     <div
-      v-if="!dismissed && (err || warn) && !lottieMessage"
+      v-if="!dismissed && (err || warn)"
       class="msg"
       :class="err ? 'err' : 'warn'"
     >

@@ -130,10 +130,14 @@ function createSandbox() {
         }
       } else if (log.level === 'warn') {
         if (log.args[0].toString().includes('[Vue warn]')) {
-          runtimeWarning.value = log.args
+          const _warnMsg = log.args
             .join('')
             .replace(/\[Vue warn\]:/, '')
             .trim()
+          if (_warnMsg.includes('Failed to resolve component: lottie-player')) {
+            return
+          }
+          runtimeWarning.value = _warnMsg
         }
       }
     },
