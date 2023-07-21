@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import Monaco from '../monaco/Monaco.vue'
 import type { EditorEmits, EditorProps } from './types'
-import { html } from 'js-beautify'
 
 const props = defineProps<EditorProps>()
 const emit = defineEmits<EditorEmits>()
@@ -27,14 +26,8 @@ watch(
   { immediate: true }
 )
 
-// function formatHtml() {
-//   const formatted = html(preCode.value, { indent_size: 2 })
-//   console.log('formatted:', formatted)
-//   // emit('change', `<template>${html(preCode.value, {indent_size: 2 })}</template>`)
-// }
-
 const onChange = (code: string) => {
-  // emit('change', `<template>${code}</template>`)
+  emit('change', `<template>${code}</template>`)
 }
 </script>
 
