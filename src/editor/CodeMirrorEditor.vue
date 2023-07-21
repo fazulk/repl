@@ -3,6 +3,7 @@ import CodeMirror, { type Props } from '../codemirror/CodeMirror.vue'
 import { computed, onMounted, ref, watch } from 'vue'
 import type { EditorEmits, EditorProps } from './types'
 import { html } from 'js-beautify'
+
 defineOptions({
   editorType: 'codemirror',
 })
