@@ -1,6 +1,6 @@
 {
   "name": "@fazulk/vue-repl",
-  "version": "2.5.28",
+  "version": "2.5.29",
   "description": "Vue component for editing Vue components",
   "packageManager": "pnpm@8.6.5",
   "type": "module",
