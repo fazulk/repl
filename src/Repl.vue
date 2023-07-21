@@ -9,6 +9,7 @@ import CodeMirrorEditor from './editor/CodeMirrorEditor.vue'
 
 export interface Props {
   containerClasses?: string
+  mainClasses?: string
   theme?: 'dark' | 'light'
   // editor: EditorComponentType
   store?: Store
@@ -97,6 +98,7 @@ defineExpose({ reload })
         <EditorContainer
           :editorComponent="CodeMirrorEditor"
           :container-classes="containerClasses"
+          :main-classes="mainClasses"
         />
       </template>
       <template #right>

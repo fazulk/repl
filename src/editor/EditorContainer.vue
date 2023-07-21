@@ -13,6 +13,7 @@ const SHOW_ERROR_KEY = 'repl_show_error'
 const props = defineProps<{
   editorComponent: EditorComponentType | any
   containerClasses?: string
+  mainClasses?: string
 }>()
 
 const store = inject('store') as Store
@@ -23,9 +24,13 @@ const localCode = ref('')
 function updateCode(code: string) {
   localCode.value = code
   store.state.activeFile.code =
-    `<template><div class=\"${props.containerClasses}\">` +
+    `<template>
+      <div class=\"${props.mainClasses || ''}\">
+        <div class=\"${props.containerClasses || ''}\">` +
     code +
-    '</div></template>'
+    `</div>
+    </div>
+    </template>`
 }
 
 function formatHtml() {
@@ -46,6 +51,8 @@ const onChange = debounce((code: string) => {
 
 const editorCode = computed(() => {
   return store.state.activeFile.code
+    .replace(/<div[^>]*>/, '')
+    .replace(/<\/div>(?!.*<\/div>)/, '')
     .replace(/<div[^>]*>/, '')
     .replace(/<\/div>(?!.*<\/div>)/, '')
     .replace(/<template>([\s\S]*)<\/template>/, '$1')

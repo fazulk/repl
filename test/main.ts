@@ -1,4 +1,4 @@
-import { createApp, h, ref, watchEffect } from 'vue'
+import { computed, createApp, h, ref, watchEffect } from 'vue'
 import { Repl, ReplStore } from '../src'
 ;(window as any).process = { env: {} }
 
@@ -33,8 +33,16 @@ const App = {
     // }, 1000);
 
     // store.setVueVersion('3.2.8')
+    const text = ref('bg-blue-400')
 
-    const text = ref('flex min-h-screen items-center')
+    const mainClasses = computed(
+      () =>
+        'fixed top-0 left-0 w-full h-full min-h-screen z-20 overflow-auto ' +
+        text.value
+    )
+    const containerClasses = computed(
+      () => 'flex flex-col items-center justify-center ' + text.value
+    )
 
     const headHTML = `<script src=\"https://cdn.tailwindcss.com\"><\/script>
     <script src=\"https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js\"><\/script>`
@@ -61,7 +69,8 @@ const App = {
               style: 'height: 700px;',
               store,
               theme: 'dark',
-              containerClasses: text.value,
+              containerClasses: containerClasses.value,
+              mainClasses: mainClasses.value,
               previewOptions: {
                 headHTML,
               },
