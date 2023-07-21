@@ -10,10 +10,9 @@ watch(
   () => [props.err, props.warn],
   () => {
     dismissed.value = false
-    console.log('this ', props.err.message)
     if (
-      typeof props.err === 'string' &&
-      props.err.includes('Failed to resolve component: lottie-player')
+      typeof props.err.message === 'string' &&
+      props.err.message.includes('Failed to resolve component: lottie-player')
     ) {
       dismissed.value = true
     }
