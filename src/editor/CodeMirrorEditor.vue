@@ -39,11 +39,6 @@ const activeMode = computed(() => {
 </script>
 
 <template>
-  <div style="margin: 10px">
-    <button type="button" class="format-btn" @click="emit('format')">
-      Format
-    </button>
-  </div>
   <CodeMirror @change="onChange" :value="value" :mode="activeMode" />
 </template>
 

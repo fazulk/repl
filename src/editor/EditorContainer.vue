@@ -2,7 +2,7 @@
 // import FileSelector from './FileSelector.vue'
 import Message from '../Message.vue'
 import { debounce } from '../utils'
-import { computed, inject, ref, watch } from 'vue'
+import { inject, ref, watch } from 'vue'
 import { Store } from '../store'
 import MessageToggle from './MessageToggle.vue'
 import type { EditorComponentType } from './types'
@@ -23,10 +23,9 @@ const localCode = ref('')
 
 function updateCode(code: string) {
   localCode.value = code
-  store.state.activeFile.code =
-    `<template><main class=\"${props.mainClasses}\"><div class=\"${props.containerClasses}\">` +
-    code +
-    `</div></main></template>`
+  store.state.activeFile.code = code
+  store.state.activeFile.containerClass = props.containerClasses || ''
+  store.state.activeFile.mainClass = props.mainClasses || ''
 }
 
 function formatHtml() {
@@ -45,15 +44,6 @@ const onChange = debounce((code: string) => {
   updateCode(code)
 }, 250)
 
-const editorCode = computed(() => {
-  return store.state.activeFile.code
-    .replace(/<div[^>]*>/, '')
-    .replace(/<\/div>(?!.*<\/div>)/, '')
-    .replace(/<main[^>]*>([\s\S]*)<\/main>/, '$1')
-    .replace(/<template>([\s\S]*)<\/template>/, '$1')
-    .trim()
-})
-
 function setItem() {
   localStorage.setItem(SHOW_ERROR_KEY, showMessage.value ? 'true' : 'false')
 }
@@ -70,11 +60,13 @@ watch(showMessage, () => {
 
 <template>
   <!-- <FileSelector /> -->
+  <div style="margin: 10px">
+    <button type="button" class="format-btn" @click="formatHtml">Format</button>
+  </div>
   <div class="editor-container">
     <props.editorComponent
-      @format="formatHtml"
       @change="onChange"
-      :value="editorCode"
+      :value="store.state.activeFile.code"
       :filename="store.state.activeFile.filename"
     />
     <Message v-show="showMessage" :err="store.state.errors[0]" />

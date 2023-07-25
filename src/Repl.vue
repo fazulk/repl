@@ -6,6 +6,7 @@ import { provide, ref, toRef } from 'vue'
 // import type { EditorComponentType } from './editor/types'
 import EditorContainer from './editor/EditorContainer.vue'
 import CodeMirrorEditor from './editor/CodeMirrorEditor.vue'
+// import MonacoEditor from './editor/MonacoEditor.vue'
 
 export interface Props {
   containerClasses?: string

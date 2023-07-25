@@ -15,13 +15,9 @@ const defaultMainFile = 'src/App.vue'
 export const importMapFile = 'import-map.json'
 export const tsconfigFile = 'tsconfig.json'
 
-const welcomeCode = `
-<template>
-<div>
+const welcomeCode = `<div>
 
-</div>
-</template>
-`.trim()
+</div>`
 
 const tsconfig = {
   compilerOptions: {
@@ -41,6 +37,8 @@ const tsconfig = {
 export class File {
   filename: string
   code: string
+  mainClass: string
+  containerClass: string
   hidden: boolean
   compiled = {
     js: '',
@@ -50,6 +48,8 @@ export class File {
   editorViewState: editor.ICodeEditorViewState | null = null
 
   constructor(filename: string, code = '', hidden = false) {
+    this.mainClass = ''
+    this.containerClass = ''
     this.filename = filename
     this.code = code
     this.hidden = hidden

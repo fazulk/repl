@@ -18,7 +18,7 @@ async function transformTS(src: string) {
 
 export async function compileFile(
   store: Store,
-  { filename, code, compiled }: File
+  { filename, code, compiled, mainClass, containerClass }: File
 ): Promise<(string | Error)[]> {
   if (!code.trim()) {
     return []
@@ -54,6 +54,10 @@ export async function compileFile(
   }
 
   const id = hashId(filename)
+  code =
+    `<template><main class=\"${mainClass}\"><div class=\"${containerClass}\">` +
+    code +
+    '</div></main></template>'
   const { errors, descriptor } = store.compiler.parse(code, {
     filename,
     sourceMap: true,
